@@ -1,0 +1,41 @@
+es:
+  game:
+    score: '<span class="fw-bold">Puntuación:</span> %{score}'
+    next: 'Siguiente'
+    username: 'Estas jugando como <span class="text-danger fw-bold">%{username}</span>'
+    game_over: '¡Game Over!'
+    correct_answer_was: 'La respuesta correcta era: <span class="fw-bold">%{answer}</span>'
+    play_again: 'Borrar puntuación e intentar de nuevo'
+    exit: 'Salir'
+    your_score_was: 'Tu puntuación fue de <span class="fw-bold">%{score}</span> con una duración de <span class="fw-bold">%{duration}</span> bajo el nombre de <span class="fw-bold">%{username}</span>'
+    retry: 'Borrar puntuación e intentar de nuevo'
+    resume: 'Continuar juego'
+    title: 'Poke Quiz'
+  helpers:
+    label:
+      game_session:
+        username: 'Nombre'
+        username_placeholder: 'Por ejemplo: hugobelman'
+        score: 'Puntuación'
+        duration: 'Duración'
+        attempt_count: 'Intentos'
+  game_session:
+    index:
+      title: 'Tabla de clasificación'
+
+    new:
+      title: 'Nuevo juego'
+      start: 'Iniciar ahora'
+
+  activerecord:
+    errors:
+      models:
+        game_session:
+          attributes:
+            username:
+              taken: 'Ya existe un usuario con ese nombre'
+  datetime:
+    distance_in_words:
+      about_x_hours: 'Alrededor de %{count} horas'
+      x_days: '%{count} días'
+    minutes_and_seconds: '%{minutes} min. y %{seconds} seg.'

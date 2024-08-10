@@ -1,0 +1,19 @@
+<%= page_title t('game.game_over') %>
+
+<span class="mb-2"><%= t('game.correct_answer_was', answer: current_question.correct_answer).html_safe %></span>
+
+<span class="mb-4">
+  <%=
+    t(
+      'game.your_score_was',
+      username: current_game_session.username,
+      score: current_game_session.score,
+      duration: duration_of_game_session(current_game_session)
+    ).html_safe
+  %>
+</span>
+
+<div class="d-grid gap-2">
+  <%= link_to t('game.play_again'), retry_game_path, class: 'btn btn-primary' %>
+  <%= link_to t('game.exit'), root_path, class: 'btn btn-danger' %>
+</div>
