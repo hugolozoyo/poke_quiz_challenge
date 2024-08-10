@@ -1,0 +1,38 @@
+es:
+  game:
+    score: '<span class="fw-bold">Puntuación:</span> %{score}'
+    next: 'Siguiente'
+    username: 'Estas jugando como <span class="text-danger fw-bold">%{username}</span>'
+    game_over: '¡Game Over!'
+    correct_answer_was: 'La respuesta correcta era: <span class="fw-bold">%{answer}</span>'
+    play_again: 'Intentar de nuevo desde el principio'
+    exit: 'Salir'
+  helpers:
+    label:
+      game_session:
+        username: 'Nombre'
+        username_placeholder: 'Por ejemplo: hugobelman'
+        score: 'Puntuación'
+        duration: 'Duración'
+        retry_count: 'Intentos'
+
+  game_session:
+    index:
+      title: 'Tabla de clasificación'
+
+    new:
+      title: 'Nuevo juego'
+      start: 'Iniciar ahora'
+
+  activerecord:
+    errors:
+      models:
+        game_session:
+          attributes:
+            username:
+              taken: 'Ya existe un usuario con ese nombre'
+  datetime:
+    distance_in_words:
+      about_x_hours: 'Alrededor de %{count} horas'
+      x_days: '%{count} días'
+    minutes_and_seconds: '%{minutes} min. y %{seconds} seg.'

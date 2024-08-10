@@ -1,0 +1,19 @@
+<%= form_with model: game_session, class: 'mt-2' do |form| %>
+  <div class="col-12">
+    <div class="form-group">
+      <%= form.label :username %>
+      <%= form.text_field :username,
+                          class: 'form-control',
+                          maxlength: GameSession::MAX_USERNAME_LENGTH,
+                          placeholder: t('helpers.label.game_session.username_placeholder')
+      %>
+    </div>
+    <div class="text-danger"><%= game_session.errors.messages_for(:username).first %></div>
+  </div>
+
+  <div class="col-12 mt-4">
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary"><%= t('game_session.new.start') %></button>
+    </div>
+  </div>
+<% end %>

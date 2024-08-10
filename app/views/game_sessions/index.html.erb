@@ -1,0 +1,38 @@
+<% page_title t('game_session.index.title') %>
+
+<%= image_tag 'title.png', class: 'img-logo img-fluid mx-auto d-block p-2' %>
+
+<div class="d-grid justify-content-end my-2">
+  <%= link_to new_game_session_path, class: 'btn btn-danger' do %>
+    <i class="bi bi-play-fill me-1"></i>
+    <%= t('game_session.new.title') %>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped text-center">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"><%= t('helpers.label.game_session.username') %></th>
+      <th scope="col"><%= t('helpers.label.game_session.score') %></th>
+      <th scope="col"><%= t('helpers.label.game_session.duration') %></th>
+      <th scope="col"><%= t('helpers.label.game_session.retry_count') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @game_sessions.each_with_index do |game_session, idx| %>
+      <tr>
+        <td><%= idx + 1 %></td>
+        <td><%= game_session.username %></td>
+        <td><%= game_session.score %></td>
+        <td><%= duration_in_minutes_and_seconds(game_session.created_at, game_session.finished_at) %></td>
+        <td><%= game_session.retry_count %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%== pagy_bootstrap_nav @pagination %>
+</div>
+

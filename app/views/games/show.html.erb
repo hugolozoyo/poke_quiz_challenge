@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between">
+  <span><%= @presenter.score_text.html_safe %></span>
+  <span><%= @presenter.username_text.html_safe %></span>
+</div>
+
+<div class="col-12 text-center mt-3">
+  <h3><%= @presenter.question_text %></h3>
+</div>
+
+<div class="col-12 text-center">
+  <img src="<%= @presenter.image_url %>" class="img-fluid question-image text-center" alt="Responsive image">
+</div>
+
+<%= form_with url: next_question_game_path, method: :post, class: 'row text-center' do |form| %>
+  <% @presenter.answers.each_with_index do |answer, idx| %>
+    <%= form.label answer, for: "answer_#{idx}", class: 'col-md-6 d-block' do %>
+      <div class="card shadow my-2 p-3">
+        <div class="form-check mx-auto">
+          <%= form.radio_button :answer, answer, id: "answer_#{idx}", class: 'form-check-input' %>
+          <span><%= answer %></span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="col-12 mt-2">
+    <div class="d-grid gap-2">
+      <%= form.button class: 'btn btn-success' do %>
+       <span><%= t('game.next') %></span>
+        <i class="bi bi-caret-right-fill ms-1"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>
