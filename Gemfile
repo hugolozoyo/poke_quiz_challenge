@@ -26,7 +26,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'bootsnap', require: false
 
 # This gem wraps the standalone executable version of the Dart version of Sass.
-gem 'dartsass-rails', '~> 0.5.0'
+gem 'dartsass-rails', '~> 0.5.1'
 
 # Use Active Record session store [https://guides.rubyonrails.org/action_controller_overview.html#session]
 gem 'activerecord-session_store'
