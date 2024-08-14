@@ -1,0 +1,12 @@
+whos_that_pokemon:
+  question_text: "Who's that Pokémon?"
+  correct_answer: '${pokemon_name}'
+  incorrect_answer: '${incorrect_pokemon_name}'
+type_of_pokemon:
+  question_text: 'What type of Pokemon is ${pokemon_name}?'
+  correct_answer: '${pokemon_type_name}'
+  incorrect_answer: '${incorrect_pokemon_type_name}'
+pokedex_of_pokemon:
+  question_text: 'What is the Pokédex number of ${pokemon_name}?'
+  correct_answer: '${pokemon_pokedex_number}'
+  incorrect_answer: '${incorrect_pokemon_pokedex_number}'

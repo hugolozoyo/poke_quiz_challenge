@@ -64,7 +64,7 @@ class QuestionGenerator
   end
 
   def incorrect_pokemon_pokedex_number_token
-    incorrect_pokemons.map { |pokemon| pokemon['id'] }
+    incorrect_pokemons.map { |pokemon| pokemon['id'].to_s }
   end
 
   def incorrect_pokemons
