@@ -2,6 +2,8 @@
 
 Este reto consistió en crear una aplicación web que permita a los usuarios responder preguntas sobre la franquicia de Pokémon.
 
+Puedes probar la aplicación en el siguiente enlace: [Poke Quiz Challenge](https://poke-quiz-challenge.hugobelman.dev/)
+
 Cuenta con las siguientes características requeridas:
 
 * Puede generar 3 tipos de preguntas, las cuales son:
@@ -45,7 +47,7 @@ ordenados de mayor a menor considerando el puntaje y número de intentos.
 Principalmente se utilizó el patrón de diseño MVC (Modelo-Vista-Controlador) para organizar el código de la aplicación.
 
 ### Modelos
-* **QuestionTemplate**: Define la estructura de una pregunta y sus respuestas posibles por medio de tokens los cuales son reemplazados por la información de los Pokémon. Ejemplo: `¿Cuál es el tipo de {pokemon_name}?`
+* **QuestionTemplate**: Define la estructura de una pregunta y sus respuestas posibles por medio de tokens los cuales son reemplazados por la información de los Pokémon. Ejemplo: `¿Cuál es el tipo de ${pokemon_name}?`
 * **GameSession**: Representa una sesión de juego de un usuario. Contiene la información de los intentos y puntaje del usuario.
 
 ### Controladores
@@ -55,7 +57,7 @@ Principalmente se utilizó el patrón de diseño MVC (Modelo-Vista-Controlador) 
 * **GameController**: Este controller no tiene un modelo asociado, se encarga de manejar las solicitudes de los usuarios para
     responder preguntas, obtener una nueva pregunta y verificar las respuestas.
 * **Api::V1::GameSessionsController**: Se encarga de manejar las solicitudes de los usuarios para obtener la lista de
-    participantes y sus resultados.
+    participantes y sus resultados mediante la API.
 
 ### Vistas
 * Las vistas son de tipo ERB (Embedded Ruby) para generar HTML dinámico.
@@ -68,6 +70,14 @@ Para la lógica de negocio se implementaron diversos patrones de diseño para or
 * **PokeApiClient**: Provee una interfaz que funciona como Fachada para obtener información de los Pokémon a través de la API de PokéAPI.
 * **QuestionGenerator**: Servicio que contiene la lógica para generar preguntas aleatorias usando la información de los Pokémon
     obteniendo una template de pregunta y reemplazando los tokens por la información de los Pokémon.
+
+### Probabilidades de las preguntas
+
+La pregunta acerca del numero de la Pokédex de un Pokémon se considera mucho más difícil que las otras dos preguntas, 
+por lo que, para mantener un balance en la dificultad de las preguntas, la aparición de esta pregunta es de 1/12.
+
+Esto se puede modificar, insertando más o menos preguntas en la tabla `question_templates`, ya que un mismo tipo de pregunta
+puede tener múltiples templates gracias al uso de tokens.
 
 ### Manejo de sesiones
 
@@ -90,6 +100,73 @@ username por lo que deberá iniciar una nueva sesión de juego.
 
 Para mejorar el rendimiento de la aplicación, se implementó una estrategia de cache para almacenar la información obtenida de
 las solicitudes atómicas a la API de PokéAPI y evitar hacer solicitudes repetidas con demasiada frecuencia.
+
+## API
+
+La aplicación cuenta con una API que permite obtener la lista de participantes y sus resultados.
+
+### Listar sesiones de juego
+Para obtener la lista de participantes y sus resultados se debe hacer la siguiente solicitud GET:
+
+```bash
+curl --location 'https://poke-quiz-challenge.hugobelman.dev/api/v1/game_sessions'
+```
+
+La respuesta será un JSON con la siguiente estructura:
+
+```json
+{
+  "count": 1,
+  "page": 1,
+  "items": 10,
+  "pages": 1,
+  "next": null,
+  "prev": null,
+  "data": [
+    {
+      "id": 1,
+      "username": "hugobelman",
+      "score": 1000,
+      "started_at": "2024-08-14T16:41:35.703Z",
+      "finished_at": "2024-08-14T16:47:05.264Z",
+      "attempt_count": 1,
+      "created_at": "2024-08-14T16:38:34.275Z",
+      "updated_at": "2024-08-14T16:47:05.265Z"
+    }
+  ]
+}
+```
+
+Las respuestas son paginadas por lo que se puede especificar el número de página con el parámetro `page` 
+en la solicitud GET, por ejemplo:
+
+```bash
+curl --location 'https://poke-quiz-challenge.hugobelman.dev/api/v1/game_sessions?page=2'
+```
+
+### Detalles de un participante
+
+Para obtener los detalles de un participante se debe hacer la siguiente solicitud GET con el username del participante:
+
+
+```bash
+curl --location 'https://poke-quiz-challenge.hugobelman.dev/api/v1/game_sessions/hugobelman'
+```
+
+La respuesta será un JSON con la siguiente estructura:
+
+```json
+{
+  "id": 1,
+  "username": "hugobelman",
+  "score": 1000,
+  "started_at": "2024-08-14T16:41:35.703Z",
+  "finished_at": "2024-08-14T16:47:05.264Z",
+  "attempt_count": 1,
+  "created_at": "2024-08-14T16:38:34.275Z",
+  "updated_at": "2024-08-14T16:47:05.265Z"
+}
+```
 
 ## Pruebas
 
